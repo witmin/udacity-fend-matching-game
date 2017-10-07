@@ -89,7 +89,7 @@ let showCard = function (card) {
 // add the card to a *list* of "open" cards
 let checkCards = function (card) {
     // get symbol of the card
-    let cardSymbol = card.children('i').attr('class').replace('fa ', '');
+    let cardSymbol = card.children('i').attr('class');
 
     // check if there are two cards opened for comparison
     if (openCards.length > 0) {
@@ -98,7 +98,7 @@ let checkCards = function (card) {
         // get the last card
         let lastCard = openCards[openCards.length - 2];
         // get symbol of the last card
-        let lastCardSymbol = lastCard.children('i').attr('class').replace('fa ', '');
+        let lastCardSymbol = lastCard.children('i').attr('class');
 
         // if match
         if (lastCardSymbol === cardSymbol) {
@@ -107,6 +107,8 @@ let checkCards = function (card) {
             lockCard(lastCard);
             // reset openCards
             openCards = [];
+            // check if win
+            checkMatched();
         } else {
             // else if not match
             hideCard(card, openCards);
@@ -134,11 +136,15 @@ let hideCard = function (card, openCards) {
 
 // check if all cards matched
 let checkMatched = function () {
-    if($('.card').hasClass('match')){
-        $("win-container")
-    }
+    var matchedNum = $('.match').length;
 
-    console('won');
+    if(matchedNum === $('.deck li').length){
+        $(".container").hide();
+        $(".win-container").show();
+    } else{
+        $(".container").show();
+        $(".win-container").hide();
+    }
 
 };
 
@@ -150,8 +156,6 @@ let checkMatched = function () {
 let initMoves = function () {
     moves = 0;
     $('.moves').text(moves);
-    stars = 3;
-    updateStars();
 };
 let updateMoves = function () {
     moves++;
@@ -160,9 +164,15 @@ let updateMoves = function () {
 };
 
 /* update stars */
+let initStars = function () {
+    stars = 3;
+    $('.stars i').removeClass("fa-star-o");
+    $('.stars i').addClass("fa-star");
+    updateStars();
+};
 // if moves <=12 with 3 starts
 let updateStars = function () {
-    if (moves>=0 && moves <= 12) {
+    if (moves <= 12) {
         $('.stars .fa').addClass("fa-star");
         stars = 3;
     } else if(moves >= 13 && moves <= 14){
@@ -178,7 +188,7 @@ let updateStars = function () {
         $('.stars li .fa').addClass("fa-star-o");
         stars = 0;
     }
-    $('.win-container .stars').text(stars);
+    $('.win-container .stars-number').text(stars);
 
 };
 
@@ -187,8 +197,10 @@ let updateStars = function () {
 // initialize the game
 let init = function () {
     initMoves();
+    initStars();
     // shuffle cards
     shuffleCards();
+    checkMatched();
 };
 
 // click restart button to initialize the game
