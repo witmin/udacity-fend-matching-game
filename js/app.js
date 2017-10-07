@@ -61,11 +61,11 @@ var restart = function () {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+let openCards = [];
+
 // initialize the game
 let init = function () {
-    //   set moves to 0;
-    let moves = 0;
-    let openCards = [];
+    openCards = [];
 
     // shuffle cards
     restart();
@@ -73,19 +73,66 @@ let init = function () {
 
 // set up click event listener for a card
 $('.deck').on('click', '.card', function (e) {
-    // hide all open class
-    $('.card').removeClass('open show');
     // open the clicked card
-    $(this).addClass('open show');
+    let clickedCard = $(event.target);
 
-    let cardName = $(this).find("fa").className;
-    console.log(cardName);
+    showCard(clickedCard);
 
-    moves += 1;
+    setTimeout(function () {
+        checkCards(clickedCard);
+    }, 500);
+
+
 });
 
-var checkCardsMatch = function (cardA, cardB) {
+// display the card's symbol
+let showCard = function (card) {
+    card.addClass('open show');
+};
 
+// add the card to a *list* of "open" cards
+let checkCards = function (card) {
+    // get symbol of the card
+    let cardSymbol = card.children('i').attr('class').replace('fa ', '');
+
+    // check if there are two cards opened for comparison
+    if (openCards.length > 0) {
+        openCards.push(card);
+
+        // get the last card
+        let lastCard = openCards[openCards.length - 2];
+        // get symbol of the last card
+        let lastCardSymbol = lastCard.children('i').attr('class').replace('fa ', '');
+
+        // if match
+        if (lastCardSymbol === cardSymbol) {
+            // lock card
+            lockCard(card);
+            lockCard(lastCard);
+            // reset openCards
+            openCards = [];
+        } else {
+            // else if not match
+            hideCard(card, openCards);
+            hideCard(lastCard, openCards);
+        }
+    } else{
+        // if only one card opened, add card to the open list
+        openCards.push(card);
+    }
+};
+
+// Lock lat opened card if matched an opened card
+let lockCard = function (card) {
+    // add "match" class to the card li
+    card.removeClass("open show");
+    card.addClass("match");
+};
+
+// remove the cards from the list and hide the card's symbol if doesn't match
+let hideCard = function (card, openCards) {
+    card.removeClass("open show");
+    openCards.pop();
 };
 
 
