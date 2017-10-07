@@ -25,26 +25,29 @@ function shuffle(array) {
     return array;
 }
 
-// Shuffle cards
-let newSetOfCards = shuffle(cards);
+var restart = function () {
 
-// define deck
-const deck = $('.deck');
+    // Shuffle cards
+    let newSetOfCards = shuffle(cards);
 
-// loop through each card and create its HTML
-for (let card of newSetOfCards) {
-    // set basic HTML of a card
-    let cardContainer = $('<li class="card"><i class="fa" aria-hidden="true"></i></li>');
+    // define deck
+    const deck = $('.deck').empty();
 
-    // add card to deck
-    deck.append(cardContainer);
+    // loop through each card and create its HTML
+    for (let card of newSetOfCards) {
+        // set basic HTML of a card
+        let cardContainer = $('<li class="card"><i class="fa" aria-hidden="true"></i></li>');
 
-    // display card symbol the icon class of the card
-    let iconClass = "fa-" + card;
+        // add card to deck
+        deck.append(cardContainer);
 
-    // add icon class to the card
-    cardContainer.find('.fa').addClass(iconClass);
-}
+        // display card symbol the icon class of the card
+        let iconClass = "fa-" + card;
+
+        // add icon class to the card
+        cardContainer.find('.fa').addClass(iconClass);
+    }
+};
 
 
 /*
@@ -58,8 +61,15 @@ for (let card of newSetOfCards) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-let moves = 0;
-let openCards = [];
+// initialize the game
+let init = function () {
+    //   set moves to 0;
+    let moves = 0;
+    let openCards = [];
+
+    // shuffle cards
+    restart();
+};
 
 // set up click event listener for a card
 $('.deck').on('click', '.card', function (e) {
@@ -68,9 +78,21 @@ $('.deck').on('click', '.card', function (e) {
     // open the clicked card
     $(this).addClass('open show');
 
+    let cardName = $(this).find("fa").className;
+    console.log(cardName);
+
     moves += 1;
 });
 
-var checkCardsMatch = function(cardA, cardB){
+var checkCardsMatch = function (cardA, cardB) {
 
 };
+
+
+// click restart button to restart
+$('.restart').on('click', function () {
+    restart();
+});
+
+// Initialize the game
+init();
