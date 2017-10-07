@@ -29,7 +29,7 @@ function shuffle(array) {
     return array;
 }
 
-var shuffleCards = function () {
+function shuffleCards() {
     // Shuffle cards
     let newSetOfCards = shuffle(cards);
 
@@ -82,12 +82,12 @@ $('.deck').on('click', '.card', function (event) {
 });
 
 // display the card's symbol
-let showCard = function (card) {
+function showCard(card) {
     card.addClass('open show');
-};
+}
 
 // add the card to a *list* of "open" cards
-let checkCards = function (card) {
+function checkCards(card) {
     // get symbol of the card
     let cardSymbol = card.children('i').attr('class');
 
@@ -119,27 +119,26 @@ let checkCards = function (card) {
         // if only one card opened, add card to the open list
         openCards.push(card);
     }
-};
+}
 
 // Lock lat opened card if matched an opened card
-let lockCard = function (card) {
+function lockCard(card) {
     // add "match" class to the card li
     card.removeClass("open show");
     card.addClass("match");
-};
+}
 
 // remove the cards from the list and hide the card's symbol if doesn't match
-let hideCard = function (card, openCards) {
+function hideCard(card, openCards) {
     card.addClass("not-match");
     setTimeout(function () {
         card.removeClass("open show not-match");
         openCards.pop();
     }, 400);
-
-};
+}
 
 // check if all cards matched
-let checkMatched = function () {
+function checkMatched() {
     var matchedNum = $('.match').length;
 
     if(matchedNum === $('.deck li').length){
@@ -149,33 +148,32 @@ let checkMatched = function () {
         $(".container").show();
         $(".win-container").hide();
     }
-
-};
+}
 
 /*
 *
 * move counter
 *
 */
-let initMoves = function () {
+function initMoves() {
     moves = 0;
     $('.moves').text(moves);
-};
-let updateMoves = function () {
+}
+function updateMoves() {
     moves++;
     $('.moves').text(moves);
     updateStars();
-};
+}
 
 /* update stars */
-let initStars = function () {
+function initStars() {
     stars = 3;
     $('.stars i').removeClass("fa-star-o");
     $('.stars i').addClass("fa-star");
     updateStars();
-};
+}
 // if moves <=12 with 3 starts
-let updateStars = function () {
+function updateStars() {
     if (moves <= 12) {
         $('.stars .fa').addClass("fa-star");
         stars = 3;
@@ -194,19 +192,19 @@ let updateStars = function () {
     }
     $('.win-container .stars-number').text(stars);
 
-};
+}
 
 
 /* Initialize and restart */
 // initialize the game
-let init = function () {
+function init() {
     initMoves();
     initStars();
     // shuffle cards
     shuffleCards();
     checkMatched();
     $('').stopwatch().stopwatch('start')
-};
+}
 
 // click restart button to initialize the game
 $('.restart').on('click', function (event) {
