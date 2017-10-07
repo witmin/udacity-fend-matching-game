@@ -25,7 +25,7 @@ function shuffle(array) {
     return array;
 }
 
-var restart = function () {
+var shuffleCards = function () {
 
     // Shuffle cards
     let newSetOfCards = shuffle(cards);
@@ -62,14 +62,7 @@ var restart = function () {
  */
 
 let openCards = [];
-
-// initialize the game
-let init = function () {
-    openCards = [];
-
-    // shuffle cards
-    restart();
-};
+let moves = 0;
 
 // set up click event listener for a card
 $('.deck').on('click', '.card', function (e) {
@@ -82,6 +75,7 @@ $('.deck').on('click', '.card', function (e) {
         checkCards(clickedCard);
     }, 500);
 
+    updateMoves();
 
 });
 
@@ -136,10 +130,37 @@ let hideCard = function (card, openCards) {
 };
 
 
-// click restart button to restart
+/*
+*
+* move counter
+*
+*/
+let initMoves = function() {
+    moves = 0;
+    $('span.moves').text(moves);
+};
+let updateMoves = function () {
+    moves ++;
+    $('.moves').text(moves);
+};
+
+
+/* Initialize and restart */
+// initialize the game
+let init = function () {
+    openCards = [];
+
+    initMoves();
+    // shuffle cards
+    shuffleCards();
+};
+
+// click restart button to initialize the game
 $('.restart').on('click', function () {
-    restart();
+    init();
 });
 
 // Initialize the game
-init();
+$(function () {
+    init();
+});
