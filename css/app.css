@@ -32,7 +32,7 @@ body {
     display: none;
 }
 
-h1 {
+h1, h2 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
 }
@@ -109,4 +109,49 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+/* Styles for win container*/
+.win-container {
+    margin: 2em auto 1em auto;
+    padding: 2em 0;
+    width: 100%;
+    max-width: 660px;
+    min-height: 580px;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+}
+.win-container img {
+    width: 80px;
+    height: auto;
+    margin: 4em auto 0 auto;
+}
+.win-container h2 {
+    font-weight: bold;
+    margin: 2em 0 1em 0;
+}
+
+.win-container .restart {
+    display: block;
+    width: auto;
+    margin: 2em auto;
+    padding: 0.6em 1.2em;
+    font-size: 1.2em;
+    color: #fff;
+    background: #2EBEBD;
+    border: 1px solid #2EBEBD;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+.win-container .restart:hover,
+.win-container .restart:focus{
+    color: #fff;
+    background: #2E3E4A;
+    border: 1px solid #2E3E4A;
+
 }
