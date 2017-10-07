@@ -1,20 +1,12 @@
-# Memory Game Project
-
-## Table of Contents
-
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+# Udacity - Memory Game
+by Millie Lin
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+This is Millie's submission for Udacity Front-end course project "Memory game". 
 
-To get started, open `js/app.js` and start building out the app's functionality
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+This repository is started from the [Udacity memory game repository](https://github.com/udacity/fend-project-memory-game).
 
-## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+The timer uses the EasyTimer.js (http://albert-gonzalez.github.io/easytimer.js/) by Albert González
