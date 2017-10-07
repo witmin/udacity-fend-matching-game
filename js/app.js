@@ -3,6 +3,10 @@
  */
 const cards = ["diamond", "diamond", "paper-plane", "paper-plane", "anchor", "anchor", "bolt", "bolt", "cube", "cube", "leaf", "leaf", "bicycle", "bicycle", "bomb", "bomb"];
 
+let openCards = [];
+let moves = 0;
+let stars = 3;
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -26,9 +30,11 @@ function shuffle(array) {
 }
 
 var shuffleCards = function () {
-
     // Shuffle cards
     let newSetOfCards = shuffle(cards);
+
+    // reset open cards list
+    openCards = [];
 
     // define deck
     const deck = $('.deck').empty();
@@ -61,11 +67,9 @@ var shuffleCards = function () {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-let openCards = [];
-let moves = 0;
 
 // set up click event listener for a card
-$('.deck').on('click', '.card', function (e) {
+$('.deck').on('click', '.card', function (event) {
     // open the clicked card
     let clickedCard = $(event.target);
 
@@ -74,8 +78,6 @@ $('.deck').on('click', '.card', function (e) {
     setTimeout(function () {
         checkCards(clickedCard);
     }, 500);
-
-    updateMoves();
 
 });
 
@@ -110,7 +112,8 @@ let checkCards = function (card) {
             hideCard(card, openCards);
             hideCard(lastCard, openCards);
         }
-    } else{
+        updateMoves();
+    } else {
         // if only one card opened, add card to the open list
         openCards.push(card);
     }
@@ -129,34 +132,68 @@ let hideCard = function (card, openCards) {
     openCards.pop();
 };
 
+// check if all cards matched
+let checkMatched = function () {
+    if($('.card').hasClass('match')){
+        $("win-container")
+    }
+
+    console('won');
+
+};
 
 /*
 *
 * move counter
 *
 */
-let initMoves = function() {
+let initMoves = function () {
     moves = 0;
-    $('span.moves').text(moves);
+    $('.moves').text(moves);
+    stars = 3;
+    updateStars();
 };
 let updateMoves = function () {
-    moves ++;
+    moves++;
     $('.moves').text(moves);
+    updateStars();
+};
+
+/* update stars */
+// if moves <=12 with 3 starts
+let updateStars = function () {
+    if (moves>=0 && moves <= 12) {
+        $('.stars .fa').addClass("fa-star");
+        stars = 3;
+    } else if(moves >= 13 && moves <= 14){
+        $('.stars li:last-child .fa').removeClass("fa-star");
+        $('.stars li:last-child .fa').addClass("fa-star-o");
+        stars = 2;
+    } else if (moves >= 15 && moves <20){
+        $('.stars li:nth-child(2) .fa').removeClass("fa-star");
+        $('.stars li:nth-child(2) .fa').addClass("fa-star-o");
+        stars = 1;
+    } else if (moves >=20){
+        $('.stars li .fa').removeClass("fa-star");
+        $('.stars li .fa').addClass("fa-star-o");
+        stars = 0;
+    }
+    $('.win-container .stars').text(stars);
+
 };
 
 
 /* Initialize and restart */
 // initialize the game
 let init = function () {
-    openCards = [];
-
     initMoves();
     // shuffle cards
     shuffleCards();
 };
 
 // click restart button to initialize the game
-$('.restart').on('click', function () {
+$('.restart').on('click', function (event) {
+    event.preventDefault();
     init();
 });
 
