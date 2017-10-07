@@ -8,7 +8,6 @@ let moves = 0;
 let stars = 3;
 
 // Timer
-let time = 0;
 let seconds = 0;
 let minutes = 0;
 let hours = 0;
@@ -22,7 +21,7 @@ let hours = 0;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -59,7 +58,7 @@ function shuffleCards() {
         // add icon class to the card
         cardContainer.find('.fa').addClass(iconClass);
     }
-};
+}
 
 
 /*
