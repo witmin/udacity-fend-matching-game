@@ -25,7 +25,26 @@ function shuffle(array) {
     return array;
 }
 
-shuffle(cards);
+// Shuffle cards
+let newSetOfCards = shuffle(cards);
+
+// define deck
+const deck = $('.deck');
+
+// loop through each card and create its HTML
+for (let card of newSetOfCards) {
+    // set basic HTML of a card
+    let cardContainer = $('<li class="card"><i class="fa" aria-hidden="true"></i></li>');
+
+    // add card to deck
+    deck.append(cardContainer);
+
+    // get the icon class of the card
+    let iconClass = "fa-" + card;
+
+    // add icon class to the card
+    cardContainer.find('.fa').addClass(iconClass);
+}
 
 
 /*
