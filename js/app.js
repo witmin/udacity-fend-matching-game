@@ -39,7 +39,7 @@ for (let card of newSetOfCards) {
     // add card to deck
     deck.append(cardContainer);
 
-    // get the icon class of the card
+    // display card symbol the icon class of the card
     let iconClass = "fa-" + card;
 
     // add icon class to the card
@@ -57,3 +57,20 @@ for (let card of newSetOfCards) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+let moves = 0;
+let openCards = [];
+
+// set up click event listener for a card
+$('.deck').on('click', '.card', function (e) {
+    // hide all open class
+    $('.card').removeClass('open show');
+    // open the clicked card
+    $(this).addClass('open show');
+
+    moves += 1;
+});
+
+var checkCardsMatch = function(cardA, cardB){
+
+};
