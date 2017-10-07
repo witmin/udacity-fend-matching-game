@@ -97,6 +97,21 @@ h1, h2 {
     animation: jello-horizontal 0.9s both;
 }
 
+@media screen and (max-width: 400px){
+    .deck{
+        margin-top: 1em;
+    }
+    .deck, .win-container {
+        width: 360px;
+        min-height: 400px;
+        padding: 10px;
+    }
+    .deck .card {
+        height: 72px;
+        width: 72px;
+    }
+}
+
 /*
  * Styles for the Score Panel
  */

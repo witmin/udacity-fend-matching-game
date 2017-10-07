@@ -205,12 +205,14 @@ let init = function () {
     // shuffle cards
     shuffleCards();
     checkMatched();
+    $('').stopwatch().stopwatch('start')
 };
 
 // click restart button to initialize the game
 $('.restart').on('click', function (event) {
     event.preventDefault();
     init();
+
 });
 
 // Initialize the game
