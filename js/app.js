@@ -7,6 +7,12 @@ let openCards = [];
 let moves = 0;
 let stars = 3;
 
+// Timer
+let time = 0;
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -139,9 +145,10 @@ function hideCard(card, openCards) {
 
 // check if all cards matched
 function checkMatched() {
-    var matchedNum = $('.match').length;
+    let matchedNum = $('.match').length;
 
     if(matchedNum === $('.deck li').length){
+        timer.stop();
         $(".container").hide();
         $(".win-container").show();
     } else{
@@ -194,6 +201,13 @@ function updateStars() {
 
 }
 
+/* Timer with library easyTimer.js by Albert Gonzalez: https://github.com/albert-gonzalez/easytimer.js */
+
+let timer = new Timer();
+timer.start();
+timer.addEventListener('secondsUpdated', function (e) {
+    $('time').html(timer.getTimeValues().toString());
+});
 
 /* Initialize and restart */
 // initialize the game
@@ -202,13 +216,14 @@ function init() {
     initStars();
     // shuffle cards
     shuffleCards();
+    timer.start();
     checkMatched();
-    $('').stopwatch().stopwatch('start')
 }
 
 // click restart button to initialize the game
 $('.restart').on('click', function (event) {
     event.preventDefault();
+    timer.reset();
     init();
 
 });

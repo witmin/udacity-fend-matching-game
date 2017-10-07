@@ -8,6 +8,7 @@
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
     <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="js/easytimer.min.js"></script>
 </head>
 <body>
 
@@ -28,6 +29,7 @@
             <button class="restart">
         		<i class="fa fa-repeat"></i>
         	</button>
+            <span class="timer">Time: <time></time></span>
         </section>
 
         <ul class="deck"></ul>
@@ -38,6 +40,7 @@
         <img src="img/success.svg" alt="success">
         <h2>Congratulations! You won.</h2>
         <p>With <span class="moves"></span> moves and <span class="stars-number"></span> stars</p>
+        <p> <span class="timer">Time: <time></time></span></p>
         <p>Wooooooo!</p>
         <button type="button" class="restart">Play again</button>
     </div>
