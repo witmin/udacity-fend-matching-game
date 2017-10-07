@@ -77,7 +77,7 @@ $('.deck').on('click', '.card', function (event) {
 
     setTimeout(function () {
         checkCards(clickedCard);
-    }, 500);
+    }, 600);
 
 });
 
@@ -130,8 +130,12 @@ let lockCard = function (card) {
 
 // remove the cards from the list and hide the card's symbol if doesn't match
 let hideCard = function (card, openCards) {
-    card.removeClass("open show");
-    openCards.pop();
+    card.addClass("not-match");
+    setTimeout(function () {
+        card.removeClass("open show not-match");
+        openCards.pop();
+    }, 400);
+
 };
 
 // check if all cards matched
