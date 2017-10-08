@@ -133,10 +133,15 @@ h1, h2 {
     list-style: none;
     display: inline-block;
 }
-.score-panel .timer{
+.score-panel .timer {
     display: inline-block;
     margin: 0 2em;
     float: right;
+}
+.score-panel .timer time{
+    display: inline-block;
+    width: 80px;
+    text-align: center;
 }
 .score-panel .restart {
     float: right;
