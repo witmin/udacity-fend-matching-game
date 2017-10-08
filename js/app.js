@@ -19,7 +19,11 @@ let hours = 0;
  *   - add each card's HTML to the page
  */
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+/**
+ * @description shuffle array
+ * @param {array} array - list of items to be shuffled
+ * @returns a new set of cards in different sequence
+ */
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -33,7 +37,9 @@ function shuffle(array) {
 
     return array;
 }
-
+/**
+ * @description shuffle cards
+ */
 function shuffleCards() {
     // Shuffle cards
     let newSetOfCards = shuffle(cards);
@@ -72,8 +78,9 @@ function shuffleCards() {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-
-// set up click event listener for a card
+/**
+ * @description click a card on the deck to show and check the matching of cards
+ */
 $('.deck').on('click', '.card', function (event) {
     // open the clicked card
     let clickedCard = $(event.target);
@@ -86,12 +93,18 @@ $('.deck').on('click', '.card', function (event) {
 
 });
 
-// display the card's symbol
+/**
+ * @description show card
+ * @param {string} card - clicked card which should be opened
+ */
 function showCard(card) {
     card.addClass('open show');
 }
 
-// add the card to a *list* of "open" cards
+/**
+ * @description check if the just opened card matches the last opened card
+ * @param {string} card - just opened/clicked card
+ */
 function checkCards(card) {
     // get symbol of the card
     let cardSymbol = card.children('i').attr('class');
@@ -126,14 +139,20 @@ function checkCards(card) {
     }
 }
 
-// Lock lat opened card if matched an opened card
+/**
+ * @description Lock last opened card and set its status to 'match'
+ * @param {string} card - a card to be marked as matched
+ */
 function lockCard(card) {
     // add "match" class to the card li
     card.removeClass("open show");
     card.addClass("match");
 }
-
-// remove the cards from the list and hide the card's symbol if doesn't match
+/**
+ * @description remove a card from the open card list and hide the card's symbol when not match
+ * @param {string} card - a card to be marked as matched
+ * @param {array} openCards - a list of open cards for match checking
+ */
 function hideCard(card, openCards) {
     card.addClass("not-match");
     setTimeout(function () {
@@ -141,8 +160,9 @@ function hideCard(card, openCards) {
         openCards.pop();
     }, 400);
 }
-
-// check if all cards matched
+/**
+ * @description check if all cards matched, toggle the display of the win message modal
+ */
 function checkMatched() {
     let matchedNum = $('.match').length;
 
@@ -161,23 +181,35 @@ function checkMatched() {
 * move counter
 *
 */
+/**
+ * @description initialize moves value
+ */
 function initMoves() {
     moves = 0;
     $('.moves').text(moves);
 }
+/**
+ * @description update moves value and call to update stars
+ */
 function updateMoves() {
     moves++;
     $('.moves').text(moves);
     updateStars();
 }
 
-/* update stars */
+/**
+ * @description initialize stars number and icon in HTML
+ */
 function initStars() {
     stars = 3;
     $('.stars i').removeClass("fa-star-o");
     $('.stars i').addClass("fa-star");
     updateStars();
 }
+
+/**
+ * @description define the rules on the number os stars and update stars on the view
+ */
 // if moves <=12 with 3 starts
 function updateStars() {
     if (moves <= 12) {
@@ -200,16 +232,20 @@ function updateStars() {
 
 }
 
-/* Timer with library easyTimer.js by Albert Gonzalez: https://github.com/albert-gonzalez/easytimer.js */
 
+/**
+ * @description initialise the timer with easyTimer.js from https://github.com/albert-gonzalez/easytimer.js by Albert Gonzalez
+ * @constructor Timer
+ */
 let timer = new Timer();
 timer.start();
 timer.addEventListener('secondsUpdated', function (e) {
     $('time').html(timer.getTimeValues().toString());
 });
 
-/* Initialize and restart */
-// initialize the game
+/**
+ * @description initialize the game
+ */
 function init() {
     initMoves();
     initStars();
@@ -219,15 +255,18 @@ function init() {
     checkMatched();
 }
 
-// click restart button to initialize the game
+/**
+ * @description reset the game and timer by clicking restart button.
+ */
 $('.restart').on('click', function (event) {
     event.preventDefault();
     timer.reset();
     init();
-
 });
 
-// Initialize the game
+/**
+ * @description initialise the game on page loading.
+ */
 $(function () {
     init();
 });
