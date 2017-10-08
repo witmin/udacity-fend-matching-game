@@ -1,27 +1,31 @@
-/*
- * Create a list that holds all of your cards
+/**
+ * Define the cards symbols
+ * @type {Array}
  */
 const cards = ["diamond", "diamond", "paper-plane", "paper-plane", "anchor", "anchor", "bolt", "bolt", "cube", "cube", "leaf", "leaf", "bicycle", "bicycle", "bomb", "bomb"];
+
+/**
+ * Define the global variables
+ * @type {Array} openCards - to hold opened cards for comparison
+ * @type {number} moves - how many pairs of moves the user makes, the initial moves should be 0
+ * @type {number} stars - less moves brings more stars, it should have 3 starts at the beginning
+ */
 
 let openCards = [];
 let moves = 0;
 let stars = 3;
 
-// Timer
+/**
+ * Define the global variables for timer value display
+ * @type {number} seconds, minutes and nours
+ */
 let seconds = 0;
 let minutes = 0;
 let hours = 0;
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 /**
  * @description shuffle array
- * @param {array} array - list of items to be shuffled
+ * @param {Array} array - list of items to be shuffled
  * @returns a new set of cards in different sequence
  */
 function shuffle(array) {
@@ -65,18 +69,6 @@ function shuffleCards() {
         cardContainer.find('.fa').addClass(iconClass);
     }
 }
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
 
 /**
  * @description click a card on the deck to show and check the matching of cards
@@ -148,10 +140,11 @@ function lockCard(card) {
     card.removeClass("open show");
     card.addClass("match");
 }
+
 /**
  * @description remove a card from the open card list and hide the card's symbol when not match
- * @param {string} card - a card to be marked as matched
- * @param {array} openCards - a list of open cards for match checking
+ * @param {String} card - a card to be marked as matched
+ * @param {Array} openCards - a list of open cards for match checking
  */
 function hideCard(card, openCards) {
     card.addClass("not-match");
@@ -160,6 +153,7 @@ function hideCard(card, openCards) {
         openCards.pop();
     }, 400);
 }
+
 /**
  * @description check if all cards matched, toggle the display of the win message modal
  */
@@ -176,11 +170,6 @@ function checkMatched() {
     }
 }
 
-/*
-*
-* move counter
-*
-*/
 /**
  * @description initialize moves value
  */
@@ -210,8 +199,8 @@ function initStars() {
 /**
  * @description define the rules on the number os stars and update stars on the view
  */
-// if moves <=12 with 3 starts
 function updateStars() {
+    // if moves <=12 with 3 starts
     if (moves <= 12) {
         $('.stars .fa').addClass("fa-star");
         stars = 3;
